@@ -1,2 +1,2 @@
 # DevOps
-DevOps Related Things WIll Uploaded Here
+DevOps Related Things Will Be Uploaded Here
