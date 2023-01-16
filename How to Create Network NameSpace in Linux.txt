@@ -1,7 +1,10 @@
-Run In Root Namespace:
+The server/workstation can be any of linux platform;
+I use Ubuntu 18.0.4
+
 1. Here we will create two namespace;For Create Network nameSpace will Execute Below Command on Cli of root namespace(Host OS);
 $ ip netns add pc-one
 $ ip netns add pc-two
+
 2. To show the created namespace run below command;
 $ip netns list
 
@@ -20,11 +23,13 @@ $ ip link set veth-p2 netns pc-two
 
 6. To check the IP address of Network NameSpace we can use below command;
 $ ip netns exec pc-one ip ad
+
 7. To access the  Network NameSpace we can use below command;
 $ip netns exec pc-one bash
 $ip netns exec pc-two bash
 
 8. Next, will assign the IPs and bring the interfaces up:
+
 ip netns exec pc-one ip addr add 192.168.0.2/24 dev veth-p1
 
 ip netns exec pc-two ip addr add 192.168.0.3/24 dev veth-p2
