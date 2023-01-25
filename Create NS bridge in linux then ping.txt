@@ -1,0 +1,54 @@
+How to create two network namespace in linux & then create bridge, then connect network namespace with this bridge. Then ping both name space.
+
+In Linux, a network namespace is a virtualized network stack that is isolated from the main network stack of the host system. Network namespaces can be used to create isolated virtual networks that can be used, for example, to create multiple isolated virtual machines on a single host.
+
+Here is an example of how to create two network namespaces in Linux, create a bridge, connect them, and then ping between them:
+
+   1.  Create the two network namespaces:
+
+sudo ip netns add ns1
+sudo ip netns add ns2
+
+This command creates two network namespaces called "ns1" and "ns2".
+
+    2. Create a virtual Ethernet interface in each namespace:
+
+sudo ip link add veth1 type veth peer name veth2
+sudo ip link set veth1 netns ns1
+sudo ip link set veth2 netns ns2
+
+This command creates two virtual Ethernet interfaces called "veth1" and "veth2" and assigns them to the "ns1" and "ns2" namespaces respectively.
+
+    3. Create a bridge and add the virtual Ethernet interfaces to it:
+
+sudo brctl addbr br0
+sudo brctl addif br0 veth1
+sudo brctl addif br0 veth2
+
+This command creates a bridge called "br0" and adds the "veth1" and "veth2" interfaces to it.
+
+    4. Bring up the interfaces and assign IP addresses:
+
+sudo ip netns exec ns1 ifconfig veth1 up
+sudo ip netns exec ns1 ifconfig veth1 192.168.1.1/24
+sudo ip netns exec ns2 ifconfig veth2 up
+sudo ip netns exec ns2 ifconfig veth2 192.168.1.2/24
+
+This command brings up the "veth1" and "veth2" interfaces and assigns them IP addresses in the "ns1" and "ns2" namespaces respectively.
+
+    5.Enable the bridge:
+
+sudo ifconfig br0 up
+
+This command brings up the "br0" interface and makes it active.
+
+    6.Ping between the two namespaces:
+
+sudo ip netns exec ns1 ping 192.168.1.2
+sudo ip netns exec ns2 ping 192.168.1.1
+
+This command sends a ping from the "ns1" namespace to the IP address assigned to the "veth2" interface in the "ns2" namespace, and vice versa.
+
+Please note that this is just a basic example of creating network namespaces and a bridge in Linux, and you will likely need to customize the settings to fit the specific needs of your application.
+
+You can use ip netns list command to list all the network namespaces and ip netns exec <namespace> <command> to execute command inside specific namespace.
