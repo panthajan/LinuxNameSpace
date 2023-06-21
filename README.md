@@ -19,10 +19,12 @@ $ip link add
 $ip link list
 
 5. Now we will assign/set the created virtual ethernet with earlier created two NameSpace
+
 $ip link set veth-p1 netns pc-one
 $ ip link set veth-p2 netns pc-two
 
 6. Next, will assign the IPs and bring the interfaces up:
+
 ip netns exec pc-one ip addr add 192.168.0.2/24 dev veth-p1
 
 ip netns exec pc-two ip addr add 192.168.0.3/24 dev veth-p2
@@ -32,9 +34,11 @@ ip netns exec pc-one ip link set dev veth-p1 up
 ip netns exec pc-two ip link set dev veth-p2 up
 
 7. To check the IP address of Network NameSpace we can use below command;
+
 $ ip netns exec pc-one ip ad
 
-8. To access the  both Network NameSpace we can use below command & will ping from NameSpace to namespace vice versa;;
+8. To access the  both Network NameSpace we can use below command & will ping from NameSpace to namespace vice versa;
+
 $ip netns exec pc-one bash
 $ping 192.168.0.3
 
