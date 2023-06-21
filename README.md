@@ -2,7 +2,7 @@
 
 Run In Root Namespace:
 
-1. Here we will create two namespace;For Create Network nameSpace will Execute Below Command on Cli of root namespace(Host OS);
+1. Here we will create two namespace; For Create Network nameSpace will Execute Below Command on Cli of root namespace(Host OS);
 $ ip netns add pc-one
 $ ip netns add pc-two
 
