@@ -3,19 +3,23 @@
 Run In Root Namespace:
 
 1. Here we will create two namespace; For Create Network nameSpace will Execute Below Command on Cli of root namespace(Host OS);
+
 $ ip netns add pc-one
 $ ip netns add pc-two
 
 2. To show the created namespace run below command;
+
 $ip netns list
 
 3. Now we will create link between two virtual Ethernet to connect two network namespace;
+
 $ip link add 
  veth-p1 
  type veth
  peer name veth-p2
 
 4. To show the created namespace link run below command;
+
 $ip link list
 
 5. Now we will assign/set the created virtual ethernet with earlier created two NameSpace
